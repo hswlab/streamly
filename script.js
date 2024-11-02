@@ -13,7 +13,7 @@ function loadStream() {
             }
         };
 
-        const hls = new Hls(config);
+        const hls = new Hls();
         hls.loadSource(url);
         hls.attachMedia(video);
         hls.on(Hls.Events.MANIFEST_PARSED, function() {
