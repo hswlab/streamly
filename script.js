@@ -5,7 +5,15 @@ function loadStream() {
     const video = document.getElementById('video');
     
     if (Hls.isSupported()) {
-        const hls = new Hls();
+        var config = {
+            xhrSetup: function (xhr, url) {
+                xhr.withCredentials = true; // do send cookies
+                url = url + '?t=' + new Date().getTime();
+                xhr.open('GET', url, true);
+            }
+        };
+
+        const hls = new Hls(config);
         hls.loadSource(url);
         hls.attachMedia(video);
         hls.on(Hls.Events.MANIFEST_PARSED, function() {
